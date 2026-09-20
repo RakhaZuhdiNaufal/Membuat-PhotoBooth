@@ -651,9 +651,12 @@ function renderFinalComposite() {
     // Toy Story grid (Woody shirt pattern)
     ctx.strokeStyle = frameConfig.border;
     ctx.lineWidth = 4;
-    const spacing = 80; // Size of grid squares
-    const offsetX = padding % spacing;
-    const offsetY = padding % spacing;
+    const bThick = 40; // Frame border thickness
+    // Dynamically calculate spacing so the frame perfectly fits 6 grid squares
+    const frameW = photoW + 2 * bThick;
+    const spacing = frameW / 6; 
+    const offsetX = ((padding - bThick) % spacing + spacing) % spacing;
+    const offsetY = ((padding - bThick) % spacing + spacing) % spacing;
     
     // Draw horizontal lines
     for(let y = offsetY; y < cHeight; y += spacing) {
@@ -737,7 +740,7 @@ function renderFinalComposite() {
     
     // Toy Story cow print border
     if (frameConfig.id === 'toystory') {
-      const bThick = 25;
+      const bThick = 40; // Match bThick used in grid offset
       ctx.fillStyle = '#FFFFFF';
       drawRoundRect(ctx, rect.x - bThick, rect.y - bThick, rect.w + bThick*2, rect.h + bThick*2, radius + 10);
       ctx.fill();
@@ -748,13 +751,14 @@ function renderFinalComposite() {
       ctx.fillStyle = '#111111';
       let rnd = rect.x + rect.y; 
       function r() { rnd = (rnd * 16807) % 2147483647; return (rnd - 1) / 2147483646; }
-      for(let s=0; s<35; s++) {
+      // Draw lots of big blobs
+      for(let s=0; s<70; s++) {
         let sx = rect.x - bThick + r() * (rect.w + bThick*2);
         let sy = rect.y - bThick + r() * (rect.h + bThick*2);
         ctx.beginPath();
-        let sr = 12 + r() * 28;
+        let sr = 25 + r() * 45; // Huge blobs
         for(let a=0; a<Math.PI*2; a+=0.5) {
-          let r2 = sr * (0.6 + r() * 0.8);
+          let r2 = sr * (0.5 + r() * 0.9);
           ctx.lineTo(sx + Math.cos(a)*r2, sy + Math.sin(a)*r2);
         }
         ctx.fill();
@@ -1015,25 +1019,25 @@ function renderFinalComposite() {
     drawHeart(ctx, cWidth * 0.15, cHeight - 120, 100, -10);
     drawHeart(ctx, cWidth * 0.85, cHeight - 100, 130, 15);
   } else if (frameConfig.id === 'toystory') {
-    drawAssetNormal(ctx, ASSETS.tsAliens, 20, 20, 320, 'top-left');
+    drawAssetNormal(ctx, ASSETS.tsAliens, 20, 20, 400, 'top-left');
     
     if (count >= 3) {
        const p1 = rects[0]; const p2 = rects[1]; const p3 = rects[2];
-       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 10, p1.y + p1.h - 50, 300, 'bottom-right');
-       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y - 20, 350, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y + 40, 280, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h + 20, 250, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 20, p1.y + p1.h - 50, 400, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y - 20, 400, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y + 40, 380, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h + 20, 320, 'bottom-right');
     }
     
     // Bottom area
-    drawAssetNormal(ctx, ASSETS.tsLogo, 40, cHeight - 40, 320, 'bottom-left');
+    drawAssetNormal(ctx, ASSETS.tsLogo, 40, cHeight - 40, 450, 'bottom-left');
     
     ctx.fillStyle = '#111111';
-    ctx.font = 'normal 80px "Playfair Display", serif';
-    ctx.fillText("XOXO", 200, cHeight - 50);
+    ctx.font = 'normal 100px "Playfair Display", serif';
+    ctx.fillText("XOXO", 280, cHeight - 60);
 
-    drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 10, 480, 'bottom-right');
-    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 100, cHeight - 380, 300, 'bottom-right');
+    drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 10, 650, 'bottom-right');
+    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 120, cHeight - 450, 400, 'bottom-right');
   } else if (frameConfig.id === 'spiderman') {
     // Tanda seru (spider3) di kiri atas, miring
     const s3Size = 350;
