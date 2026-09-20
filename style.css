@@ -943,6 +943,7 @@ main#app {
   max-width: 400px;
   display: flex;
   justify-content: center;
+  margin-bottom: 4rem; /* Failsafe margin directly on the image container */
 }
 
 .final-image {
@@ -1000,6 +1001,9 @@ main#app {
   text-align: center;
   background-color: var(--color-offwhite);
   color: var(--color-taupe);
+  position: relative;
+  z-index: 10;
+  clear: both;
 }
 
 .footer-logo {
