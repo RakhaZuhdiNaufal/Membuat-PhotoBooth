@@ -652,16 +652,18 @@ function renderFinalComposite() {
     ctx.strokeStyle = frameConfig.border;
     ctx.lineWidth = 4;
     const spacing = 80; // Size of grid squares
+    const offsetX = padding % spacing;
+    const offsetY = padding % spacing;
     
     // Draw horizontal lines
-    for(let y = 0; y < cHeight; y += spacing) {
+    for(let y = offsetY; y < cHeight; y += spacing) {
       ctx.beginPath();
       ctx.moveTo(0, y);
       ctx.lineTo(cWidth, y);
       ctx.stroke();
     }
     // Draw vertical lines
-    for(let x = 0; x < cWidth; x += spacing) {
+    for(let x = offsetX; x < cWidth; x += spacing) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(x, cHeight);
