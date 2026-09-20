@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FLASHFRAME | Your moment. Your frame.</title>
+  <meta name="description" content="Capture the moment, create the memory. A premium digital photobooth experience.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">FLASHFRAME</div>
+      <nav class="desktop-nav">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#studio" class="nav-link">Studio</a>
+        <a href="#result" class="nav-link">Result</a>
+      </nav>
+      <button class="btn btn-primary start-btn-nav" id="navStartBtn">START</button>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" id="mobileMenuBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="logo">FLASHFRAME</div>
+      <button class="close-drawer" aria-label="Close menu" id="closeDrawerBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#home" class="drawer-link" id="drawerHome">Home</a>
+      <a href="#studio" class="drawer-link" id="drawerStudio">Studio</a>
+      <a href="#result" class="drawer-link" id="drawerResult">Result</a>
+    </nav>
+  </div>
+
+  <main id="app">
+    <!-- STATE: LANDING -->
+    <section id="state-landing" class="state-section is-active">
+      <div class="hero">
+        <div class="hero-content">
+          <h1 class="hero-title">Your moment.<br>Your frame.</h1>
+          <p class="hero-subtitle">Capture the moment, create the memory.</p>
+          <div class="hero-actions">
+            <button class="btn btn-large btn-primary" id="heroStartBtn">START PHOTOBOOTH</button>
+            <span class="action-note">Camera access required</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="mockup-frame">
+            <!-- Simple abstract representation of a photobooth strip -->
+            <div class="mockup-photo" style="background-color: var(--color-pink-muted); display:flex; align-items:center; justify-content:center;">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--color-taupe)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="mockup-photo" style="background-color: var(--color-tan); display:flex; align-items:center; justify-content:center;">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="mockup-brand">FLASHFRAME</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Choose Your Style</h3>
+            <p class="step-desc">Select from our premium frames, adjust filters, and pick your favorite layout.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Strike a Pose</h3>
+            <p class="step-desc">Activate your camera, gather your friends, and capture the perfect moments.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Take It Home</h3>
+            <p class="step-desc">Download your high-quality photo strip or share it directly from your device.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="privacy-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span>Your photos stay on this device. We do not store or upload your images.</span>
+      </div>
+    </section>
+
+    <!-- STATE: ERROR / PERMISSION -->
+    <section id="state-error" class="state-section">
+      <div class="error-container">
+        <div class="error-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+        </div>
+        <h2 class="error-title" id="errorTitle">Camera Access Required</h2>
+        <p class="error-message" id="errorMessage">Please allow camera access in your browser settings to use the photobooth.</p>
+        <div class="error-actions">
+          <button class="btn btn-primary" id="retryCameraBtn">TRY AGAIN</button>
+          <button class="btn btn-outline" id="backToHomeBtn">BACK TO HOME</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE: STUDIO (Camera + Controls) -->
+    <section id="state-studio" class="state-section">
+      <div class="studio-layout">
+        
+        <!-- Camera Area -->
+        <div class="camera-area">
+          <div class="video-container" id="videoContainer">
+            <!-- The video element for preview -->
+            <video id="cameraVideo" autoplay playsinline muted></video>
+            
+            <!-- Live Preview Layout Guide -->
+            <div id="layoutGuide" class="layout-guide"></div>
+            
+            <!-- Countdown Overlay -->
+            <div class="countdown-overlay hidden" id="countdownOverlay">
+              <span id="countdownText">3</span>
+            </div>
+            
+            <!-- Shutter Flash -->
+            <div class="shutter-flash hidden" id="shutterFlash"></div>
+            
+            <!-- Multi-Capture Progress -->
+            <div class="capture-progress hidden" id="captureProgress">
+              <div class="progress-text" id="progressText">PHOTO 1 / 4</div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="camera-controls-bottom">
+            <button class="btn btn-icon hidden" id="switchCameraBtn" aria-label="Switch Camera" title="Switch Camera">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7Z"/><path d="M22 22H2"/><path d="m8 17 4-4 4 4"/><path d="M12 13v9"/></svg>
+            </button>
+            <label class="toggle-label sound-toggle">
+              <span class="label-text">SOUND</span>
+              <input type="checkbox" id="soundToggle" checked>
+              <div class="toggle-slider"></div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+          <div class="panel-header">
+            <h2>Settings</h2>
+          </div>
+          
+          <div class="control-scroll-area">
+            <div class="control-group">
+              <label class="control-label">Photo Count</label>
+              <div class="segmented-control" id="photoCountControl">
+                <label><input type="radio" name="photoCount" value="1"><span>1</span></label>
+                <label><input type="radio" name="photoCount" value="3"><span>3</span></label>
+                <label><input type="radio" name="photoCount" value="4" checked><span>4</span></label>
+                <label><input type="radio" name="photoCount" value="6"><span>6</span></label>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Countdown</label>
+              <div class="segmented-control" id="countdownControl">
+                <label><input type="radio" name="countdownTime" value="3" checked><span>3s</span></label>
+                <label><input type="radio" name="countdownTime" value="5"><span>5s</span></label>
+                <label><input type="radio" name="countdownTime" value="10"><span>10s</span></label>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Filter</label>
+              <div class="select-wrapper">
+                <select id="filterSelect">
+                  <option value="original">Original</option>
+                  <option value="warm">Warm</option>
+                  <option value="vintage">Vintage</option>
+                  <option value="bw">B&W</option>
+                  <option value="soft">Soft</option>
+                  <option value="cinema">Cinema</option>
+                </select>
+                <div class="select-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Frame</label>
+              <div class="select-wrapper">
+                <select id="frameSelect">
+                  <!-- JS will populate frames -->
+                </select>
+                <div class="select-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Layout</label>
+              <div class="select-wrapper">
+                <select id="layoutSelect">
+                  <option value="classic">Classic Strip</option>
+                  <option value="grid">Grid 2×2</option>
+                  <option value="vertical">Vertical Strip</option>
+                  <option value="polaroid">Polaroid</option>
+                </select>
+                <div class="select-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group event-mode-group">
+              <div class="event-header">
+                <label class="control-label">Event Name</label>
+                <label class="toggle-label mini">
+                  <input type="checkbox" id="eventModeToggle">
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <input type="text" id="eventNameInput" class="text-input" placeholder="e.g. FLASHFRAME" disabled maxlength="24">
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn btn-large btn-primary" id="captureBtn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+              CAPTURE
+            </button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- STATE: PROCESSING -->
+    <section id="state-processing" class="state-section">
+      <div class="processing-container">
+        <div class="spinner"></div>
+        <h2 class="processing-text">Developing your photos...</h2>
+      </div>
+    </section>
+
+    <!-- STATE: RESULT -->
+    <section id="state-result" class="state-section">
+      <div class="result-layout">
+        
+        <div class="result-content">
+          <div class="result-header">
+            <h2 class="result-title">YOUR PHOTO IS READY</h2>
+          </div>
+          <!-- Final Composite Preview -->
+          <div class="final-preview-container" id="finalPreviewContainer">
+            <!-- The canvas is used to generate the image, but we display an <img> for better mobile saving -->
+            <img id="finalImagePreview" class="final-image" alt="Your photobooth result" />
+            <!-- Canvas is kept off-screen for processing -->
+            <canvas id="finalCanvas" class="hidden-canvas" style="display:none;"></canvas>
+          </div>
+          
+          <!-- Post-Capture Controls -->
+          <div class="result-controls">
+            <div class="action-buttons-grid">
+              <button class="btn btn-primary btn-full" id="downloadBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                DOWNLOAD
+              </button>
+              
+              <button class="btn btn-outline btn-full" id="shareBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                SHARE
+              </button>
+              
+              <button class="btn btn-secondary btn-full" id="retakeBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                RETAKE
+              </button>
+              
+              <button class="btn btn-text btn-full" id="startOverBtn">
+                START OVER
+              </button>
+            </div>
+            <div id="shareFallbackMsg" class="share-fallback hidden">Sharing is not supported on this browser.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-logo">FLASHFRAME</div>
+      <p class="footer-tagline">Capture the moment, create the memory.</p>
+      <p class="copyright">© 2026 FLASHFRAME. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=13"></script>
+</body>
+</html>
