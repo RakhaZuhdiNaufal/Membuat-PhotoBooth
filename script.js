@@ -1019,25 +1019,30 @@ function renderFinalComposite() {
     drawHeart(ctx, cWidth * 0.15, cHeight - 120, 100, -10);
     drawHeart(ctx, cWidth * 0.85, cHeight - 100, 130, 15);
   } else if (frameConfig.id === 'toystory') {
-    drawAssetNormal(ctx, ASSETS.tsAliens, -10, -20, 400, 'top-left');
+    drawAssetNormal(ctx, ASSETS.tsAliens, 20, 20, 280, 'top-left');
     
     if (count >= 3) {
        const p1 = rects[0]; const p2 = rects[1]; const p3 = rects[2];
-       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 20, p1.y + p1.h, 300, 'bottom-right');
-       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y, 450, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y, 350, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h, 300, 'bottom-right');
+       // Line separating photo 1 & 2 is at p1.y + p1.h + 40
+       const line12 = p1.y + p1.h + 40;
+       // Line separating photo 2 & 3 is at p2.y + p2.h + 40
+       const line23 = p2.y + p2.h + 40;
+       
+       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth - 15, line12, 280, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsSlinky, 30, line12, 350, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsWoody, 10, line23, 260, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 20, line23, 250, 'bottom-right');
     }
     
     // Bottom area
-    drawAssetNormal(ctx, ASSETS.tsLogo, 40, cHeight - 40, 450, 'bottom-left');
+    drawAssetNormal(ctx, ASSETS.tsLogo, 40, cHeight - 60, 400, 'bottom-left');
     
     ctx.fillStyle = '#111111';
     ctx.font = 'normal 100px "Playfair Display", serif';
-    ctx.fillText("XOXO", 280, cHeight - 60);
+    ctx.fillText("XOXO", 280, cHeight - 80);
 
-    drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 10, 650, 'bottom-right');
-    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 120, cHeight - 450, 400, 'bottom-right');
+    drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 40, 580, 'bottom-right');
+    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 100, cHeight - 450, 350, 'bottom-right');
   } else if (frameConfig.id === 'spiderman') {
     // Tanda seru (spider3) di kiri atas, miring
     const s3Size = 350;
