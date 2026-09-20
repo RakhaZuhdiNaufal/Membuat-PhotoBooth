@@ -1042,7 +1042,10 @@ function renderFinalComposite() {
     ctx.fillText("XOXO", 280, cHeight - 80);
 
     drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 40, 580, 'bottom-right');
-    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 100, cHeight - 450, 350, 'bottom-right');
+    // Draw Buzz flying right on the bottom white line of the 3rd photo
+    if (count >= 3) {
+       drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 40, rects[2].y + rects[2].h - 20, 400, 'top-right');
+    }
   } else if (frameConfig.id === 'spiderman') {
     // Tanda seru (spider3) di kiri atas, miring
     const s3Size = 350;
