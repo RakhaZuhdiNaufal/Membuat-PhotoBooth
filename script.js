@@ -15,7 +15,7 @@ const FRAMES = [
   { id: 'love', name: 'Love', color: '#FFF0F5', border: '#FF69B4', text: '#8B0000' },
   { id: 'graduation', name: 'Graduation', color: '#002147', border: '#D4AF37', text: '#FFFFFF' },
   { id: 'checkered', name: 'Checkered', color: '#B3D4E0', border: '#F7F2EA', text: '#1D1B19', pattern: 'checker' },
-  { id: 'alien', name: 'Alien (Toy Story)', color: '#A3C054', border: '#D1363A', text: '#FFFFFF' },
+  { id: 'toystory', name: 'Toy Story', color: '#FCD116', border: '#8B4513', text: '#111111', pattern: 'grid' },
   { id: 'spiderman', name: 'Spiderman', color: '#111111', border: '#333333', text: '#FFFFFF', pattern: 'dots' }
 ];
 
@@ -23,7 +23,15 @@ const ASSETS = {
   spider1: new Image(),
   spider2: new Image(),
   spider3: new Image(),
-  spider4: new Image()
+  spider4: new Image(),
+  tsAliens: new Image(),
+  tsJessie: new Image(),
+  tsWoody: new Image(),
+  tsBullseye: new Image(),
+  tsSlinky: new Image(),
+  tsLogo: new Image(),
+  tsBuzz: new Image(),
+  tsGroup: new Image()
 };
 
 function onAssetLoaded() {
@@ -37,10 +45,28 @@ ASSETS.spider2.onload = onAssetLoaded;
 ASSETS.spider3.onload = onAssetLoaded;
 ASSETS.spider4.onload = onAssetLoaded;
 
+ASSETS.tsAliens.onload = onAssetLoaded;
+ASSETS.tsJessie.onload = onAssetLoaded;
+ASSETS.tsWoody.onload = onAssetLoaded;
+ASSETS.tsBullseye.onload = onAssetLoaded;
+ASSETS.tsSlinky.onload = onAssetLoaded;
+ASSETS.tsLogo.onload = onAssetLoaded;
+ASSETS.tsBuzz.onload = onAssetLoaded;
+ASSETS.tsGroup.onload = onAssetLoaded;
+
 ASSETS.spider1.src = 'assets/spider-1.png?v=1';
 ASSETS.spider2.src = 'assets/spider-2.png?v=1';
 ASSETS.spider3.src = 'assets/spider-3.png?v=1';
 ASSETS.spider4.src = 'assets/spider-4.png?v=1';
+
+ASSETS.tsAliens.src = 'assets/ts-aliens.png?v=1';
+ASSETS.tsJessie.src = 'assets/ts-jessie.png?v=1';
+ASSETS.tsWoody.src = 'assets/ts-woody.png?v=1';
+ASSETS.tsBullseye.src = 'assets/ts-bullseye.png?v=1';
+ASSETS.tsSlinky.src = 'assets/ts-slinky.png?v=1';
+ASSETS.tsLogo.src = 'assets/ts-logo.png?v=1';
+ASSETS.tsBuzz.src = 'assets/ts-buzz.png?v=1';
+ASSETS.tsGroup.src = 'assets/ts-group.png?v=1';
 
 const STATES = {
   LANDING: 'state-landing',
@@ -621,6 +647,26 @@ function renderFinalComposite() {
         ctx.fill();
       }
     }
+  } else if (frameConfig.pattern === 'grid') {
+    // Toy Story grid (Woody shirt pattern)
+    ctx.strokeStyle = frameConfig.border;
+    ctx.lineWidth = 4;
+    const spacing = 80; // Size of grid squares
+    
+    // Draw horizontal lines
+    for(let y = 0; y < cHeight; y += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(cWidth, y);
+      ctx.stroke();
+    }
+    // Draw vertical lines
+    for(let x = 0; x < cWidth; x += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, cHeight);
+      ctx.stroke();
+    }
   }
   
   // Decorative border for certain frames
@@ -685,6 +731,33 @@ function renderFinalComposite() {
     let radius = 30; // Default rounded corners
     if (frameConfig.id === 'checkered' && count === 3 && (i === 0 || i === 2)) {
       radius = 400; // Oval/cloud-like corners for 1st and 3rd photos (almost full pill)
+    }
+    
+    // Toy Story cow print border
+    if (frameConfig.id === 'toystory') {
+      const bThick = 25;
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, rect.x - bThick, rect.y - bThick, rect.w + bThick*2, rect.h + bThick*2, radius + 10);
+      ctx.fill();
+      
+      ctx.save();
+      drawRoundRect(ctx, rect.x - bThick, rect.y - bThick, rect.w + bThick*2, rect.h + bThick*2, radius + 10);
+      ctx.clip();
+      ctx.fillStyle = '#111111';
+      let rnd = rect.x + rect.y; 
+      function r() { rnd = (rnd * 16807) % 2147483647; return (rnd - 1) / 2147483646; }
+      for(let s=0; s<35; s++) {
+        let sx = rect.x - bThick + r() * (rect.w + bThick*2);
+        let sy = rect.y - bThick + r() * (rect.h + bThick*2);
+        ctx.beginPath();
+        let sr = 12 + r() * 28;
+        for(let a=0; a<Math.PI*2; a+=0.5) {
+          let r2 = sr * (0.6 + r() * 0.8);
+          ctx.lineTo(sx + Math.cos(a)*r2, sy + Math.sin(a)*r2);
+        }
+        ctx.fill();
+      }
+      ctx.restore();
     }
     
     drawRoundRect(ctx, rect.x, rect.y, rect.w, rect.h, radius);
@@ -917,15 +990,48 @@ function renderFinalComposite() {
     ctx.restore();
   }
 
+  // Helper to draw transparent PNGs (without the flood-fill hack)
+  function drawAssetNormal(ctx, img, x, y, size, angle = 0) {
+    if (!img.complete || img.naturalWidth === 0) return;
+    const aspect = img.height / img.width;
+    const drawW = size; const drawH = size * aspect;
+    let dx = -drawW / 2; let dy = -drawH / 2;
+    if (angle === 'top-left') { dx = 0; dy = 0; }
+    else if (angle === 'top-right') { dx = -drawW; dy = 0; }
+    else if (angle === 'bottom-left') { dx = 0; dy = -drawH; }
+    else if (angle === 'bottom-right') { dx = -drawW; dy = -drawH; }
+    
+    ctx.save(); ctx.translate(x, y);
+    if (typeof angle === 'number') ctx.rotate(angle * Math.PI / 180);
+    ctx.drawImage(img, dx, dy, drawW, drawH);
+    ctx.restore();
+  }
+
   if (frameConfig.id === 'love') {
     drawHeart(ctx, cWidth * 0.15, topPad / 2 || 80, 120, -15);
     drawHeart(ctx, cWidth * 0.85, topPad / 2 || 80, 90, 20);
     drawHeart(ctx, cWidth * 0.15, cHeight - 120, 100, -10);
     drawHeart(ctx, cWidth * 0.85, cHeight - 100, 130, 15);
-  } else if (frameConfig.id === 'alien') {
-    drawStar(ctx, cWidth * 0.5, topPad / 2 || 80, 120, 0);
-    drawPlanet(ctx, cWidth * 0.15, cHeight - 120, 110, -25);
-    drawStar(ctx, cWidth * 0.85, cHeight - 120, 90, 20);
+  } else if (frameConfig.id === 'toystory') {
+    drawAssetNormal(ctx, ASSETS.tsAliens, 20, 20, 320, 'top-left');
+    
+    if (count >= 3) {
+       const p1 = rects[0]; const p2 = rects[1]; const p3 = rects[2];
+       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 10, p1.y + p1.h - 50, 300, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y - 20, 350, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y + 40, 280, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h + 20, 250, 'bottom-right');
+    }
+    
+    // Bottom area
+    drawAssetNormal(ctx, ASSETS.tsLogo, 40, cHeight - 40, 320, 'bottom-left');
+    
+    ctx.fillStyle = '#111111';
+    ctx.font = 'normal 80px "Playfair Display", serif';
+    ctx.fillText("XOXO", 200, cHeight - 50);
+
+    drawAssetNormal(ctx, ASSETS.tsGroup, cWidth - 20, cHeight - 10, 480, 'bottom-right');
+    drawAssetNormal(ctx, ASSETS.tsBuzz, cWidth - 100, cHeight - 380, 300, 'bottom-right');
   } else if (frameConfig.id === 'spiderman') {
     // Tanda seru (spider3) di kiri atas, miring
     const s3Size = 350;
