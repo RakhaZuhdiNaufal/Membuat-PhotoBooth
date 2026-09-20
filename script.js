@@ -534,7 +534,7 @@ function renderFinalComposite() {
   let cWidth, cHeight;
   let padding = 60;
   let topPad = 120;
-  let bottomPadding = 180; // Space for logo/date
+  let bottomPadding = frameConfig.id === 'toystory' ? 500 : 180; // Space for logo/date
   let innerGap = 30;
   
   const photoW = 1200;
@@ -554,7 +554,7 @@ function renderFinalComposite() {
       const photoW = cWidth - (padding * 2);
       
       topPad = 120;
-      const bottomPad = 320; // Room for branding
+      const bottomPad = frameConfig.id === 'toystory' ? 550 : 320; // Room for branding
       const availableHeight = cHeight - topPad - bottomPad - (gap * (count - 1));
       const photoH = availableHeight / count;
       
@@ -1019,14 +1019,14 @@ function renderFinalComposite() {
     drawHeart(ctx, cWidth * 0.15, cHeight - 120, 100, -10);
     drawHeart(ctx, cWidth * 0.85, cHeight - 100, 130, 15);
   } else if (frameConfig.id === 'toystory') {
-    drawAssetNormal(ctx, ASSETS.tsAliens, 20, 20, 400, 'top-left');
+    drawAssetNormal(ctx, ASSETS.tsAliens, -10, -20, 400, 'top-left');
     
     if (count >= 3) {
        const p1 = rects[0]; const p2 = rects[1]; const p3 = rects[2];
-       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 20, p1.y + p1.h - 50, 400, 'bottom-right');
-       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y - 20, 400, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y + 40, 380, 'bottom-left');
-       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h + 20, 320, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsJessie, cWidth + 20, p1.y + p1.h, 300, 'bottom-right');
+       drawAssetNormal(ctx, ASSETS.tsSlinky, 10, p2.y, 450, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsWoody, -10, p3.y, 350, 'bottom-left');
+       drawAssetNormal(ctx, ASSETS.tsBullseye, cWidth - 10, p2.y + p2.h, 300, 'bottom-right');
     }
     
     // Bottom area
