@@ -483,7 +483,7 @@ main#app {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  height: calc(100vh - 72px); /* Full height minus header */
+  min-height: calc(100vh - 72px); /* Changed from height to min-height to prevent overflow */
 }
 
 @media (min-width: 992px) {
