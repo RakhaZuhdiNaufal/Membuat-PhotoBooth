@@ -910,7 +910,7 @@ main#app {
 .result-layout {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 6rem 1rem; /* Increased bottom padding */
 }
 
 .result-header {
@@ -946,6 +946,7 @@ main#app {
 }
 
 .final-image {
+  display: block;
   max-width: 100%;
   height: auto;
   box-shadow: var(--shadow-lg);
